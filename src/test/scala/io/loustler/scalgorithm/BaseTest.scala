@@ -21,10 +21,24 @@
  */
 
 package io.loustler.scalgorithm
+
 import org.scalatest.{ FlatSpec, Matchers }
 
 /**
   * @author loustler
   * @since 01/01/2019
   */
-trait BaseTest extends FlatSpec with Matchers {}
+trait BaseTest extends FlatSpec with Matchers {
+
+  def measure[A](f: => A): A = {
+    val start = System.currentTimeMillis()
+
+    val result = f
+
+    val measured = System.currentTimeMillis() - start
+
+    println(s"benchmark results is $measured ms")
+
+    result
+  }
+}

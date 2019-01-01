@@ -40,9 +40,9 @@ class FibonacciTest extends BaseTest {
     val thirdFibonacciNumber: Int = 17
     val seventeenthFibonacci: Int = 1597
 
-    recursive(fibonacciNumber) shouldBe fifthFibonacci
-    recursive(secondFibonacciNumber) shouldBe ninthFibonacci
-    recursive(thirdFibonacciNumber) shouldBe seventeenthFibonacci
+    measure(recursive(fibonacciNumber)) shouldBe fifthFibonacci
+    measure(recursive(secondFibonacciNumber)) shouldBe ninthFibonacci
+    measure(recursive(thirdFibonacciNumber)) shouldBe seventeenthFibonacci
   }
 
   it should "be success by inner recursive" in {
@@ -55,8 +55,23 @@ class FibonacciTest extends BaseTest {
     val thirdFibonacciNumber: Int = 23
     val twentyOneFibonacci:   Int = 28657
 
-    inner(firstFibonacciNumber) shouldBe sixthFibonacci
-    inner(secondFibonacciNumber) shouldBe thirteenthFibonacci
-    inner(thirdFibonacciNumber) shouldBe twentyOneFibonacci
+    measure(inner(firstFibonacciNumber)) shouldBe sixthFibonacci
+    measure(inner(secondFibonacciNumber)) shouldBe thirteenthFibonacci
+    measure(inner(thirdFibonacciNumber)) shouldBe twentyOneFibonacci
+  }
+
+  it should "more effective recursion" in {
+    val fibonacciNumber: Int = 5
+    val fifthFibonacci:  Int = 5
+
+    val secondFibonacciNumber: Int = 9
+    val ninthFibonacci:        Int = 34
+
+    val thirdFibonacciNumber: Int = 17
+    val seventeenthFibonacci: Int = 1597
+
+    measure(effectiveRecursive(fibonacciNumber)) shouldBe fifthFibonacci
+    measure(effectiveRecursive(secondFibonacciNumber)) shouldBe ninthFibonacci
+    measure(effectiveRecursive(thirdFibonacciNumber)) shouldBe seventeenthFibonacci
   }
 }

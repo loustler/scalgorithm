@@ -1,4 +1,5 @@
 package io.loustler.scalgorithm.basic
+import scala.annotation.tailrec
 
 /**
   * @author loustler
@@ -18,5 +19,17 @@ object Fibonacci {
     }
 
     innerRecursive(number)
+  }
+
+  def effectiveRecursive(number: Int): Int = effectiveRecursive(number, 1, 0)
+
+  @tailrec
+  def effectiveRecursive(number: Int, eax: Int, ebx: Int): Int = {
+    val realNumber: Int = number - 1
+
+    realNumber match {
+      case 0 => eax + ebx
+      case _ => effectiveRecursive(realNumber, ebx, eax + ebx)
+    }
   }
 }
