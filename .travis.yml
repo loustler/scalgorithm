@@ -1,0 +1,30 @@
+language: scala
+
+sudo: false
+
+env:
+  - JDK=oraclejdk8
+  - JDK=openjdk8
+
+scala:
+  - 2.12.7
+
+dist: trusty
+
+cache:
+  - "~/.ivy2"
+  - "~/.sbt"
+
+before_script:
+  - jdk_switcher use $JDK
+
+install:
+  - sudo apt-get update
+
+script:
+  - sbt ++$TRAVIS_SCALA_VERSION -Dfile.encoding=UTF8 -J-XX:ReservedCodeCacheSize=1G -J-Xms1G test
+
+notifications:
+  email:
+    on_success: never
+    on_failure: change
