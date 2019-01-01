@@ -7,8 +7,8 @@ import Dependencies._
   */
 object Dependencies {
   val scalaOrganization  = "org.scala-lang"
-  val scalaVersion       = "2.12.7" // latest stable version at 10/27/2018
-  val crossScalaVersions = Seq("2.11.12", "2.12.7")
+  val scalaVersion       = "2.12.8" // latest stable version at 01/01/2019
+  val crossScalaVersions = Seq("2.11.12", scalaVersion)
 
   // build tools version
   val scalaFmtVersion = "1.5.1"
