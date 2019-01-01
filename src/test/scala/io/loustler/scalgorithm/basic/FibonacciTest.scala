@@ -74,4 +74,19 @@ class FibonacciTest extends BaseTest {
     measure(effectiveRecursive(secondFibonacciNumber)) shouldBe ninthFibonacci
     measure(effectiveRecursive(thirdFibonacciNumber)) shouldBe seventeenthFibonacci
   }
+
+  it should "by iterative" in {
+    val firstFibonacciNumber: Int = 6
+    val sixthFibonacci:       Int = 8
+
+    val secondFibonacciNumber: Int = 13
+    val thirteenthFibonacci:   Int = 233
+
+    val thirdFibonacciNumber: Int = 23
+    val twentyOneFibonacci:   Int = 28657
+
+    measure(iteractive(firstFibonacciNumber)) shouldBe sixthFibonacci
+    measure(iteractive(secondFibonacciNumber)) shouldBe thirteenthFibonacci
+    measure(iteractive(thirdFibonacciNumber)) shouldBe twentyOneFibonacci
+  }
 }
