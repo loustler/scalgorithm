@@ -22,6 +22,8 @@
 
 package io.loustler.scalgorithm.basic
 
+import scala.annotation.tailrec
+
 /**
   * @author loustler
   * @since 0.0.1
@@ -31,6 +33,7 @@ object BinaryDigit {
   def toBinaryDigit(number: Long): String =
     toBinaryDigit(number, List.empty[Long])
 
+  @tailrec
   def toBinaryDigit(number: Long, binaries: List[Long]): String = number / 2 match {
     case 1 => (1 :: (number % 2) :: binaries).mkString
     case _ => {
