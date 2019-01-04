@@ -20,30 +20,21 @@
  * THE SOFTWARE.
  */
 
-package io.loustler.scalgorithm.search
-
-import io.loustler.scalgorithm.utils.DetermineUtils
-import scala.annotation.tailrec
+package io.loustler.scalgorithm.utils
 
 /**
   * @author loustler
-  * @since 0.0.1
+  * @since 01/04/2019
   */
-object BinarySearch {
+object DetermineUtils {
 
-  def search(arr: Array[Int], x: Int): Int = {
-    @tailrec
-    def recursive(arr: Array[Int], x: Int, start: Int, finish: Int): Int =
-      if (start <= finish) {
-        val pivot: Int = DetermineUtils.pivot(start, finish)
-
-        if (x == arr(pivot)) pivot
-        else {
-          if (x < arr(pivot)) recursive(arr, x, start, pivot - 1)
-          else recursive(arr, x, pivot + 1, finish)
-        }
-      } else -1
-
-    recursive(arr, x, 0, arr.length - 1)
-  }
+  /**
+    * Get a pivot unsigned int value by bit operator which div by 2
+    *
+    * @param first first index
+    * @param latest latest index
+    * @return pivot index value
+    */
+  def pivot(first: Int, latest: Int): Int =
+    (first + latest) >>> 1
 }

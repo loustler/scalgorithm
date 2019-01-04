@@ -20,30 +20,40 @@
  * THE SOFTWARE.
  */
 
-package io.loustler.scalgorithm.search
+package io.loustler.scalgorithm.sort
 
-import io.loustler.scalgorithm.utils.DetermineUtils
-import scala.annotation.tailrec
+import io.loustler.scalgorithm.BaseTest
+import io.loustler.scalgorithm.sort.InsertionSort.sort
 
 /**
   * @author loustler
-  * @since 0.0.1
+  * @since 01/04/2019
   */
-object BinarySearch {
+class InsertionSortTest extends BaseTest {
+  "InsertionSort" should "be success for String array" in {
+    val array:    Array[String] = Array("A", "a", "b", "ABC", "c")
+    val expected: Array[String] = Array("A", "ABC", "a", "b", "c")
 
-  def search(arr: Array[Int], x: Int): Int = {
-    @tailrec
-    def recursive(arr: Array[Int], x: Int, start: Int, finish: Int): Int =
-      if (start <= finish) {
-        val pivot: Int = DetermineUtils.pivot(start, finish)
+    measure(sort(array))
 
-        if (x == arr(pivot)) pivot
-        else {
-          if (x < arr(pivot)) recursive(arr, x, start, pivot - 1)
-          else recursive(arr, x, pivot + 1, finish)
-        }
-      } else -1
+    array shouldBe expected
+  }
 
-    recursive(arr, x, 0, arr.length - 1)
+  it should "be success for Int array" in {
+    val array:    Array[Int] = Array(1, 3, 5, 2, 4, 6, 7, 8)
+    val expected: Array[Int] = 1 to 8 toArray
+
+    measure(sort(array))
+
+    array shouldBe expected
+  }
+
+  it should "be success for Long array" in {
+    val array:    Array[Long] = Array(1L, 5L, 4L, 3L, 2L, 6L, 7L, 8L)
+    val expected: Array[Long] = (1 to 8).toArray.map(_.toLong)
+
+    measure(sort(array))
+
+    array shouldBe expected
   }
 }
