@@ -31,13 +31,13 @@ import org.scalatest.{ FlatSpec, Matchers }
 trait BaseTest extends FlatSpec with Matchers {
 
   def measure[A](f: => A): A = {
-    val start = System.currentTimeMillis()
+    val start = System.nanoTime()
 
     val result = f
 
-    val measured = System.currentTimeMillis() - start
+    val measured = System.nanoTime() - start
 
-    println(s"benchmark results is $measured ms")
+    println(s"benchmark results is $measured ns")
 
     result
   }

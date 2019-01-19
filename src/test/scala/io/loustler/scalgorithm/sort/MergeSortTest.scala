@@ -23,7 +23,7 @@
 package io.loustler.scalgorithm.sort
 
 import io.loustler.scalgorithm.BaseTest
-import io.loustler.scalgorithm.sort.MergeSort.sort
+import io.loustler.scalgorithm.sort.MergeSort._
 
 /**
   * @author loustler
@@ -31,11 +31,13 @@ import io.loustler.scalgorithm.sort.MergeSort.sort
   */
 class MergeSortTest extends BaseTest {
   "MergeSort" should "be success" in {
-    val intList: List[Int] = List(6, 3, 7, 2, 4, 1, 9, 0, 5, 8)
+    val array: List[Int] = List(14, 13, 16, 21, 15, 8, 36, 21, 12, 20, 22, 35, 13, 45, 43, 17, 19,
+      18, 28, 40, 30, 25, 41, 30, 52, 57, 26, 30, 38, 48, 50, 52, 44, 60)
+    val expected: List[Int] =
+      List(8, 12, 13, 13, 14, 15, 16, 17, 18, 19, 20, 21, 21, 22, 25, 26, 28, 30, 30, 30, 35, 36,
+        38, 40, 41, 43, 44, 45, 48, 50, 52, 52, 57, 60)
 
-    val expected: List[Int] = intList.sorted
-
-    sort(intList)(_ < _) shouldBe expected
+    measure(sort[Int](array)(_ < _)) shouldBe expected
   }
 
   it should "be success 2" in {
@@ -43,6 +45,18 @@ class MergeSortTest extends BaseTest {
 
     val expected: List[String] = stringList.sortBy(_.length)
 
-    sort(stringList)(_.length < _.length) shouldBe expected
+    measure(sort(stringList)(_.length < _.length)) shouldBe expected
+  }
+
+  it should "be success version 2" in {
+    val array: Array[Int] = Array(14, 13, 16, 21, 15, 8, 36, 21, 12, 20, 22, 35, 13, 45, 43, 17, 19,
+      18, 28, 40, 30, 25, 41, 30, 52, 57, 26, 30, 38, 48, 50, 52, 44, 60)
+    val expected: Array[Int] =
+      Array(8, 12, 13, 13, 14, 15, 16, 17, 18, 19, 20, 21, 21, 22, 25, 26, 28, 30, 30, 30, 35, 36,
+        38, 40, 41, 43, 44, 45, 48, 50, 52, 52, 57, 60)
+
+    measure(sort2(array))
+
+    array shouldBe expected
   }
 }

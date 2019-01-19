@@ -21,12 +21,15 @@
  */
 
 package io.loustler.scalgorithm.sort
+import scala.math.Ordering
+import scala.reflect.ClassTag
 
 /**
   * @author loustler
   * @since 0.0.1
   */
 object MergeSort {
+  private final val threshold = 32
 
   def sort[T](xs: List[T])(less: (T, T) => Boolean): List[T] = {
     def merge1(xs: List[T], ys: List[T]): List[T] = (xs, ys) match {
@@ -42,4 +45,54 @@ object MergeSort {
       merge1(sort(xz)(less), sort(yz)(less))
     }
   }
+
+  def sort2[T: ClassTag](array: Array[T])(implicit ord: Ordering[T]): Unit = {
+    def inner(array:   Array[T],
+              i0:      Int,
+              iN:      Int,
+              ord:     Ordering[T],
+              scratch: Array[T] = Array.empty[T]): Unit =
+      if (iN - i0 < threshold) InsertionSort.sort(array, i0, iN, ord)
+      else {
+        val iK = (i0 + iN) >>> 1 // Bit shift equivalent to unsigned math, no overflow
+        val sc = if (scratch.isEmpty) new Array[T](iK - i0) else scratch
+        inner(array, i0, iK, ord, sc)
+        inner(array, iK, iN, ord, sc)
+        sorted(array, i0, iK, iN, ord, sc)
+      }
+
+    inner(array, 0, array.length, ord)
+  }
+
+  private def sorted[T](array:   Array[T],
+                        i0:      Int,
+                        iK:      Int,
+                        iN:      Int,
+                        ord:     Ordering[T],
+                        scratch: Array[T]): Unit =
+    // Check to make sure we're not already in order
+    if (ord.compare(array(iK - 1), array(iK)) > 0) {
+      var i  = i0
+      val jN = iK - i0
+      var j  = 0
+      while (i < iK) {
+        scratch(j) = array(i)
+        i += 1
+        j += 1
+      }
+      var k = i0
+      j = 0
+      while (i < iN && j < jN) {
+        if (ord.compare(array(i), scratch(j)) < 0) {
+          array(k) = array(i)
+          i += 1
+        } else {
+          array(k) = scratch(j)
+          j += 1
+        }
+        k += 1
+      }
+      while (j < jN) { array(k) = scratch(j); j += 1; k += 1 }
+      // Don't need to finish a(i) because it's already in place, k = i
+    }
 }
